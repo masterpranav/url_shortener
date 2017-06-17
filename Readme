@@ -1,0 +1,7 @@
+Open terminal
+Type sudo gedit /etc/hosts
+
+Add to File
+127.0.0.1 www.tirr.com
+127.0.0.1 tirr.com 
+

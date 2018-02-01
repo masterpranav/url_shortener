@@ -4,6 +4,7 @@ from django.views import View
 from shortener.models import PcURL
 from .forms import SubmitUrlForm
 from analytics.models import ClickEvent
+from django.contrib.auth.models import User
 
 class HomeView(View):
 	def get(self,request,*args,**kwargs):
@@ -23,7 +24,9 @@ class HomeView(View):
 		template="shortener/home.html"	
 		if form.is_valid():
 			new_url=form.cleaned_data.get("url")
-			obj,created= PcURL.objects.get_or_create(url=new_url)
+			#user=UserProfile.objects.filter(user=request.user)
+			a=User.objects.get(username=request.user)
+			obj,created= PcURL.objects.get_or_create(url=new_url,user=a)
 			context={
 				"object":obj,
 				"created": created,
@@ -39,3 +42,19 @@ class URLRedirectView(View): #Class Based View
 		obj=get_object_or_404(PcURL,shortcode=shortcode)
 		print ClickEvent.objects.create_event(obj)
 		return HttpResponseRedirect(obj.url)
+
+class ViewUrl(View):
+	def get(self,request,*args,**kwargs):
+		q=PcURL.objects.filter(user=request.user)
+		context={
+			"object":q
+		}
+		return render(request,"shortener/view_url.html",context)		
+
+class ViewAnalytics(View):
+	def get(self,request,*args,**kwargs):
+		q=PcURL.objects.filter(user=request.user)
+		context={
+			"object":q
+		}
+		return render(request,"shortener/view_analytics.html",context)		

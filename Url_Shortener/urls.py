@@ -17,10 +17,13 @@ from django.conf.urls import url,include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from shortener.views import URLRedirectView ,HomeView
+from shortener.views import URLRedirectView ,HomeView,ViewUrl
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$',HomeView.as_view()),
+    url(r'^$',HomeView.as_view(),name='home'),
+    url(r'^view_url/',ViewUrl.as_view(),name='view_url'),
+    #url(r'^view_analytics/',URLRedirectView.as_view(),name='view_analytics'),
     url(r'^(?P<shortcode>[\w-]+)/$',URLRedirectView.as_view(),name='scode'),
+    url(r'^account/', include('accounts.urls',namespace='accounts')),
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

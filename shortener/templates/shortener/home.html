@@ -1,13 +1,16 @@
 {% extends "base_shortener.html" %}
 {% block content %}
-<h1 class="cover-heading">{{ title }}</h1>
-	<p class='lead'>Shorten that URL</p>
+	<br/>
 	<p class="lead">
 	  <div class='col-sm-6 col-sm-offset-3 '>
 				<form method="POST" action='.'>{% csrf_token %}
 					<!--<input name='url' type='text' placeholder="Shorten your URL"/>-->
 					{{ form.as_p }}
+					{% if user.is_authenticated %}
 					<input class='btn btn-primary'type="submit" value="Shorten &raquo;">
+					{% else %}
+					 <font color="red" size="+2">Login First to Shortener!</font> 
+					{% endif %}
 				</form>
 			</div>
 	</p>

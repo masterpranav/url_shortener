@@ -57,8 +57,8 @@ MIDDLEWARE = [
     'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
-ROOT_URLCONF = 'tutorial.urls'
-ROOT_HOSTCONF='tutorial.hosts'
+#ROOT_URLCONF = 'tutorial.urls'
+#ROOT_HOSTCONF='tutorial.hosts'
 DEFAULT_HOST='www'
 DEFAULT_REDIRECT_URL="http://pranavchaturvedi.in"
 PARENT_HOST="pranavchaturvedi.in"
@@ -135,7 +135,7 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT=os.path.join(BASE_DIR, "static")
 MEDIA_URL = 'media/'
-LOGIN_REDIRECT_URL = '/account/'
+LOGIN_REDIRECT_URL = '/'
 LOGIN_URL='/account/login/'
 PDF2IMG_URL='media/images/'
 LOGIN_EXEMPT_URLS = (

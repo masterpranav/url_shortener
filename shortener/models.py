@@ -5,6 +5,7 @@ from shortener.utils import create_shortcode
 from .validators import validate_url,validate_dot_com
 #from django.core.urlresolvers import reverse
 from django_hosts.resolvers import reverse
+from django.contrib.auth.models import User
 
 SHORTCODE_MAX=getattr(settings,"SHORTCODE_MAX",15)
 
@@ -27,6 +28,7 @@ class PcURLManager(models.Manager):
 		return "New codes made: {i}".format(i=new_codes)
 
 class PcURL(models.Model):
+	user=models.ForeignKey(User,on_delete=models.CASCADE)
 	url=models.CharField(max_length=220,validators=[validate_url,validate_dot_com])
 	shortcode=models.CharField(max_length=SHORTCODE_MAX,unique=True,blank=True)
 	updated=models.DateTimeField(auto_now=True)

@@ -1,0 +1,22 @@
+{% extends "base_shortener.html" %}
+
+
+{% block content %}
+<table style="width:100%; background-color:white" border="10px">
+<tr>
+    <th>URL</th>
+    <th>SHORTURL</th>
+    <th>LAST UPDATED</th>
+    <th>VIEW</th>
+  </tr>
+{% for i in object %}
+	<tr>
+	<td style="color:blue"><a href={{i.url}}>{{i.url}}</a></td>
+	<td style="color:blue"><a href="http://www.tirr.com:8000/{{i.shortcode}}">http://www.tirr.com:8000/{{i.shortcode}}</a></td>
+	<td>{{i.updated}}</td>
+	<td style="color:blue"><form action="/view_analytics"><input type="submit" color='blue' value="View_Analtics"></input></form></td>
+	</tr>
+{% endfor %}
+</table>
+<td style="color:blue"><button color='blue' onclick="PcURL.objects.refresh_shortcodes()">Update All Your Shortcodes</button></td>	
+{% endblock content %}
